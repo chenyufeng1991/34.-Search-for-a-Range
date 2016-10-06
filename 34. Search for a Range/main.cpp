@@ -55,27 +55,35 @@ vector<int> searchRange(vector<int>& nums, int target)
     }
     else
     {
-        // 继续进行二分查找
-        long left = BinarySearch(nums, begin, index - 1, target);
-        long right = BinarySearch(nums, index + 1, end, target);
+        long left = index;
+        long right = index;
+        for (long i = index - 1; i >= 0; i--)
+        {
+            if (nums[i] == target)
+            {
+                left = i;
+                continue;
+            }
+            else
+            {
+                break;
+            }
+        }
+        for (long i = index + 1; i < nums.size(); i++)
+        {
+            if (nums[i] == target)
+            {
+                right = i;
+                continue;
+            }
+            else
+            {
+                break;
+            }
+        }
 
-        if (left == -1)
-        {
-            result.push_back((int)index);
-        }
-        else
-        {
-            result.push_back((int)left);
-        }
-
-        if (right == -1)
-        {
-            result.push_back((int)index);
-        }
-        else
-        {
-            result.push_back((int)right);
-        }
+        result.push_back((int)left);
+        result.push_back((int)right);
     }
 
     return result;
@@ -83,15 +91,10 @@ vector<int> searchRange(vector<int>& nums, int target)
 
 int main(int argc, const char * argv[])
 {
-    int arr[] = {5, 7, 7, 8, 8, 10};
+    int arr[] = {1,1,2};
     vector<int>vv(arr,arr+sizeof(arr)/sizeof(int));
 
-    vector<int> res = searchRange(vv, 7);
+    vector<int> res = searchRange(vv, 1);
 
     return 0;
 }
-
-
-
-
-
